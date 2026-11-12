@@ -89,15 +89,15 @@ download_one() {
     # quant the demo is built around, so restrict the download via allow_patterns.
     case "$_family" in
         bonsai2)
-            # Download the demo's default PQ2_0 packing and projector.
-            # PQ2_0 needs our fork; Q2_0 works with current upstream llama.cpp.
+            # Download the demo's default PTQ1_0 packing and projector.
+            # PTQ1_0 needs our fork; Q2_0 works with current upstream llama.cpp.
             bonsai2_size_available "$_size" || { info "No Bonsai 2 ${_size}; skipping."; return 0; }
             _gguf_repo="prism-ml/Ternary-Bonsai-2-${_size}-gguf"
             _mlx_repo="prism-ml/Ternary-Bonsai-2-${_size}-mlx-2bit"
             _gguf_dir="models/bonsai2-gguf/${_size}"
             _mlx_dir="models/Ternary-Bonsai-2-${_size}-mlx-2bit"
             _display="Bonsai-2-${_size}"
-            _gguf_pattern="*-PQ2_0.gguf"
+            _gguf_pattern="*-PQT1_0.gguf"
             ;;
         bonsai)
             _gguf_repo="prism-ml/Bonsai-${_size}-gguf"
@@ -114,7 +114,7 @@ download_one() {
             _mlx_dir="models/Ternary-Bonsai-${_size}-mlx-2bit"
             _display="Ternary-Bonsai-${_size}"
             # ternary: download only the format the installed backend will use
-            # (PQ2_0 where it has kernels, official group-64 otherwise; both when no
+            # (PTQ1_0 where it has kernels, official group-64 otherwise; both when no
             # binary is installed yet). See select_model_gguf in common.sh and
             # MODEL-FORMATS.md. Newer repos ship the official file as plain
             # *-Q2_0.gguf; download_one falls back to that name when no *g64 exists.
@@ -123,9 +123,9 @@ download_one() {
                 [ -d "$_bd" ] && _dl_backend="${_bd#bin/}" && break
             done
             if [ -z "$_dl_backend" ]; then
-                _gguf_pattern="*-PQ2_0.gguf,*g64.gguf"
+                _gguf_pattern="*-PTQ1_0.gguf,*g64.gguf"
             elif pq2_0_ready_backend "$_dl_backend"; then
-                _gguf_pattern="*-PQ2_0.gguf"
+                _gguf_pattern="*-PTQ1_0.gguf"
             else
                 _gguf_pattern="*g64.gguf"
             fi
@@ -187,7 +187,7 @@ download_one() {
             if ! _gguf_any_present; then
                 # newer repos ship the official group-64 file as plain *-Q2_0.gguf
                 # and carry no *g64 name; fall back to that exact pattern.
-                step "No PQ2_0/g64 file in ${_gguf_repo}; falling back to *-Q2_0.gguf (official group-64 on current repos) ..."
+                step "No PTQ1_0/g64 file in ${_gguf_repo}; falling back to *-Q2_0.gguf (official group-64 on current repos) ..."
                 if ! hf_download "$_gguf_repo" "$_gguf_dir" "*-Q2_0.gguf" || ! ls "$_gguf_dir"/*-Q2_0.gguf >/dev/null 2>&1; then
                     err "Download reported success but no usable model file was written to ${_gguf_dir}/."
                     exit 1

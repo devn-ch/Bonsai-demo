@@ -260,6 +260,13 @@ These scripts run the llama.cpp backend and need GGUF weights. On an MLX-only se
 options â€” running the MLX script directly (`run_mlx.sh` / `start_mlx_server.sh`), or
 downloading the GGUF weights.
 
+
+```bash
+sudo BONSAI_GGUF=models/bonsai2-gguf/27B/Ternary-Bonsai-2-27B-PTQ1_0.gguf BONSAI_CTX=80000 BONSAI_NGL=67 BONSAI_KV4=1 ./scripts/start_llama_server.sh --host 0.0.0.0
+```
+
+Runs the server and expose it to connect from other devices. Tested with 8GBÂVRAM. You can play with the BONSAI_NGL to adjust the GPU utilization an with the BONSAI_CTX size.
+
 ### llama.cpp (Windows PowerShell)
 
 ```powershell

@@ -24,7 +24,7 @@ case "$BONSAI_MODEL" in
             bonsai2)
                 GGUF_MODEL_DIR="models/bonsai2-gguf/${BONSAI_MODEL}"
                 MLX_MODEL_DIR="models/Ternary-Bonsai-2-${BONSAI_MODEL}-mlx-2bit"
-                GGUF_QUANT_PATTERN="*-PQ2_0.gguf"
+                GGUF_QUANT_PATTERN="*-PTQ1_0.gguf"
                 BONSAI_DISPLAY="Bonsai-2-${BONSAI_MODEL}"
                 ;;
             bonsai)
