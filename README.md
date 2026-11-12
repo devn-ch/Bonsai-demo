@@ -116,7 +116,7 @@ http://localhost:8080:
 sudo BONSAI_GGUF=models/bonsai2-gguf/27B/Ternary-Bonsai-2-27B-PTQ1_0.gguf BONSAI_CTX=80000 BONSAI_NGL=67 BONSAI_KV4=1 ./scripts/start_llama_server.sh --host 0.0.0.0
 ```
 
-Runs the server and expose it to connect from other devices. Tested with 8GB�VRAM. You can play with the BONSAI_NGL to adjust the GPU utilization an with the BONSAI_CTX size.
+Runs the server and expose it to connect from other devices. Tested with 8GB VRAM. You can play with the BONSAI_NGL to adjust the GPU utilization an with the BONSAI_CTX size.
 
 
 
